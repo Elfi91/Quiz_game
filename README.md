@@ -1,38 +1,34 @@
-# Progetto: Quizzettone Python 🧠
-
-Questo progetto implementa un semplice gioco a quiz (CLI - Command Line Interface) in Python. L'obiettivo principale è stato il **Refactoring** del codice per riorganizzarlo in **package** logici (`data` e `ui`), migliorando così la modularità e la manutenibilità del progetto.
-
----
-
-## 📁 Struttura del Package
-
-La struttura del codice è organizzata nei seguenti package logici all'interno della cartella radice `QUIZ_GAME/`:
-
-* **`main.py`**: Il punto d'ingresso e il cuore della logica di esecuzione del quiz (ciclo `while`, gestione della navigazione e calcolo finale delle statistiche).
-* **`data/`**: Contiene la logica per l'accesso e la manipolazione dei dati.
-    * `repository.py`: **Repository Layer**. Interfaccia di basso livello per l'I/O (apertura e lettura dei file di testo).
-    * `services.py`: **Service Layer**. Logica di business per trasformare i dati grezzi in modelli utilizzabili (ottenere la lista domande, estrarre il contenuto domanda/risposta).
-* **`ui/`**: Contiene la logica di interfaccia utente.
-    * `console.py`: Funzioni dedicate alla visualizzazione delle domande, del feedback e dello stato del quiz (output a console).
-* **`domande_risposte/`**: Cartella contenente i file di testo delle risorse (il file indice e le singole domande/risposte).
+# Project: Python Quiz Game 🧠
+This project implements a simple quiz game (CLI - Command Line Interface) in Python. The main objective was the **Refactoring** of the code to reorganize it into logical **package** (`data` and `ui`), thereby improving the project's modularity and maintainability.
 
 ---
 
-## 🚀 Requisiti
+### 📁 Package Structure
+The code structure is organized into the following logical packages inside the root folder `QUIZ_GAME/`:
 
-Per eseguire questo progetto, è necessario **Python 3.x**.
+* **`main.py`**: The entry point and core logic for quiz execution (`while` loop, navigation management, and final statistics calculation).
+
+* **`data/`**: Contains the logic for data access and manipulation.
+    * `repository.py`: **Repository Layer**. Low-level interface for I/O (opening and reading text files).
+    * `services.py`: **Service Layer**. Business logic for transforming raw data into usable models (fetching the list of questions, extracting question/answer content).
+* **`ui/`**: Contains the user interface logic.
+    * `console.py`: Functions dedicated to displaying questions, feedback, and the quiz status (console output).
+* **`questions_answers/`**: Folder containing the text resource files (the index file and the individual questions/answers).
 
 ---
 
-## 🚩 Stato e Obiettivi
+## 🚀 Requirements
 
-### Stato Attuale
+To run this project, **Python 3.x** is required.
+---
 
-La **struttura dei package** (`data/`, `ui/`, `domande_risposte/`) è stata **creata** correttamente nella cartella radice `QUIZ_GAME/`.
+## 🚩 Status and Next Steps
 
-### Prossimi Passi
+### Current Status
+The package structure (`data/`, `ui/`, `questions_answers/`) has been correctly **created** in the `QUIZ_GAME/` root folder.
 
-1.  **Copia del Codice Funzionale:** Inserire il codice Python nei moduli (`repository.py`, `services.py`, `console.py`).
-2.  **Correzione degli Import Interni:** Aggiornare l'importazione in `data/services.py` (da relativo a `repository`).
-3.  **Correzione degli Import di Alto Livello:** Aggiornare tutti gli import in `main.py` per puntare correttamente ai nuovi package (`data.services` e `ui.console`).
-4.  **Correzione dei Percorsi:** Aggiornare le stringhe dei percorsi nel codice per riflettere la nuova posizione della cartella `domande_risposte/`.
+### Next Steps
+**Copy Functional Code:** Insert the Python code into the respective modules (`repository.py`, `services.py`, `console.py`).
+**Internal Imports Correction:** Update the import in `data/services.py` (from a relative import to `repository`).
+**High-Level Imports Correction:** Update all imports in `main.py` to correctly point to the new packages (`data.services` and `ui.console`).
+**Path Correction:** Update the path strings in the code to reflect the new location of the `questions_answers/` folder.
