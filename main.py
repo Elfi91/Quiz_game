@@ -7,14 +7,18 @@ from data.services import (
     get_question_content, 
     get_separator_index, 
     extract_question, 
-    extract_answer
+    extract_answer,
+    generate_statistics
 )
 
 from ui.console import (
     show_question,
     show_feedback,
     print_question_indicator,
-    collect_user_answer
+    collect_user_answer,
+    validate_choice,
+    get_updated_counter,
+    get_current_question_number
 )
 
 print("Welcome to the quiz game")
@@ -22,56 +26,22 @@ print("Welcome to the quiz game")
 
 # --- UTILITY FUNCTIONS  ---
 def is_answer_correct(choice: str, correct_answer: str) -> bool:
+    '''Checks if the user's input matches the correct answer (case-insensitive).'''
     if choice.upper() == correct_answer:
         return True
     else:
         return False
 
 def generate_feedback(is_correct: bool) -> str:
-    '''Returns the message indicating whether the user guessed the answer correctly.'''
+    '''Returns a success or failure message based on the quiz result.'''
     if is_correct == True:
         return "You nailed it!"
     else:
         return "You didn't get it right."
 
-def validate_choice(choice: str) -> bool:
-    '''Checks if the answer is one of the options: A, B, C, or D.'''
-    choice_tmp = choice.upper().strip()
-    if choice_tmp in ("A", "B", "C", "D"): #== "A" or choice.tmp == "B" or choice.tmp == "C" or choice.tmp == "D":
-        return True
-    else: 
-        return False
-
-def generate_statistics(final_results: list[dict[str, str | bool]]) -> dict[str, int]:
-    statistics: dict[str, int] = {}
-
-    correct_answers: int = 0
-    incorrect_answers: int = 0
-
-    for result in final_results: 
-        if result["correct_answer"]:
-            correct_answers += 1
-        else:
-            incorrect_answers += 1
-
-    statistics["correct_answers"] = correct_answers
-    statistics["incorrect_answers"] = incorrect_answers
-    return statistics
-
-def get_current_question_number(value: int) -> int:
-    '''Returns the current question index, plus one, for the user.'''
-    return value + 1
-
-def get_updated_counter(counter: int, user_input: str) -> int:
-    '''Returns the updated counter value to move to the next or previous question.'''
-    if user_input.upper() == "P":
-        return counter - 1
-    else:
-        return counter + 1
-    
-
 # --- MAIN EXECUTION LOGIC ---
 def main():
+    '''Orchestrates the entire quiz flow, including iteration, processing, and final output.'''
     base_dir = Path(__file__).parent
 
     list_of_questions: list[str] = []
@@ -137,8 +107,8 @@ def main():
     print("Game finished. Here are the results:")
     print("*"*30)
 
-    print(f"Correct answers: {statistics["correct_answers"]}")
-    print(f"Incorrect answers: {statistics["incorrect_answers"]}")   
+    print(f"Correct answers: {statistics['correct_answers']}")
+    print(f"Incorrect answers: {statistics['incorrect_answers']}")   
 
 
 # Entry point del nostro programma
