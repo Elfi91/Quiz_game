@@ -1,0 +1,7 @@
+Which of the following is an immutable (non-modifiable) collection of objects in Python?
+
+A. List
+B. Set
+C. Dict
+D. Tuple
+£D
