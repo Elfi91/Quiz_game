@@ -1,5 +1,4 @@
 # Project: Python Quiz Game 🧠
-This project implements a simple quiz game (CLI - Command Line Interface) in Python. The main objective was the **Refactoring** of the code to reorganize it into logical **package** (`data` and `ui`), # Project: Python Quiz Game 🧠
 This project implements a simple quiz game (CLI - Command Line Interface) in Python. The main objective was the **Refactoring** of the code to reorganize it into logical **package** (`data` and `ui`), thereby improving the project's modularity, maintainability, and code stability.
 
 
