@@ -1,7 +1,7 @@
-Which Python keyword do you use to immediately exit a loop (for or while)?
+What is the main function of Postman?;
 
-A. Continue
-B. Return
-C. Break
-D. Yield
-£C
+A. Photo Editing
+B. API Testing and Development
+C. Database Management
+D. Server Coding
+£B

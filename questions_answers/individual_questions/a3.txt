@@ -1,7 +1,7 @@
-Which keyword is used to define a function in Python?
+Which function displays output on the screen in Python?
 
-A. Func
-B. Function
-C. Define
-D. Def
+A. Output()
+B. Write()
+C. Show()
+D. Print()
 £D

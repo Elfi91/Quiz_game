@@ -31,10 +31,14 @@ def validate_choice(choice: str) -> bool:
     
 def get_updated_counter(counter: int, user_input: str) -> int:
     '''Increments or decrements the question counter based on user input (Next/Previous).'''
-    if user_input.upper() == "P":
-        return counter - 1
+    if user_input.upper().strip() == "P":
+        if counter > 0:
+            return counter -1
+        else:
+            return counter
     else:
-        return counter + 1
+        return counter +1
+
     
 def get_current_question_number(value: int) -> int:
     '''Converts the current zero-based index to a one-based number for display.'''

@@ -3,7 +3,10 @@ from .repository import open_resource_file
 
 def get_separator_index(content: str) -> int:
     '''Finds the index of the separator character (£) in the question content.'''
-    return content.index("£")
+    try:
+        return content.index("£")
+    except ValueError:
+        raise ValueError("Invalid format: the £ is missing.")
 
 def extract_question(content: str, index: int) -> str:
     '''Extracts the question text using the separator index.'''
@@ -27,14 +30,14 @@ def get_question_content(file_path: str) -> str:
         content = file.read()
         return content
     
-def generate_statistics(final_results: list[dict[str, str | bool]]) -> dict[str, int]:
+def generate_statistics(final_results: dict[int, dict[str, str | bool]]) -> dict[str, int]:
     '''Calculates and returns the final count of correct and incorrect answers.'''
     statistics: dict[str, int] = {}
 
     correct_answers: int = 0
     incorrect_answers: int = 0
 
-    for result in final_results: 
+    for result in final_results.values(): 
         if result["correct_answer"]:
             correct_answers += 1
         else:
