@@ -1,6 +1,8 @@
 # Importing
 from typing import List, Dict, Union
 from pathlib import Path
+from data.repository import get_data
+from requests.exceptions import HTTPError
 
 from data.services import (
     get_question_list,
@@ -8,7 +10,7 @@ from data.services import (
     get_separator_index, 
     extract_question, 
     extract_answer,
-    generate_statistics
+    generate_statistics,
 )
 
 from ui.console import (
@@ -20,6 +22,8 @@ from ui.console import (
     get_updated_counter,
     get_current_question_number
 )
+
+from data.constants import BASE_URL, LISTA_DOMANDE_URL, BASE_DOMANDA_SINGOLA_URL
 
 print("Welcome to the quiz game")
 
@@ -39,16 +43,16 @@ def generate_feedback(is_correct: bool) -> str:
     else:
         return "You didn't get it right."
 
+
 # --- MAIN EXECUTION LOGIC ---
 def main():
     '''Orchestrates the entire quiz flow, including iteration, processing, and final output.'''
-    base_dir = Path(__file__).parent
-    index_file_path = base_dir / "questions_answers" / "questions.txt"
+    index_url = LISTA_DOMANDE_URL
 
     try:
-        list_of_questions = get_question_list(str(index_file_path))
-    except FileNotFoundError as e:
-        print(f"Critical error: Could not find the question list at {index_file_path}")
+        list_of_questions = get_question_list(index_url)
+    except HTTPError as e:
+        print(f"Critical error: Could not find the question list at {index_url}")
         print("The game cannot start")
         return
     except Exception as e:
@@ -63,10 +67,10 @@ def main():
 
     while current_question_counter < list_length:
         file_name = list_of_questions[current_question_counter]
-        question_file_path = base_dir / "questions_answers" / "individual_questions" / file_name
+        question_url = f"{BASE_DOMANDA_SINGOLA_URL}/{file_name}"
 
         try:
-            content = get_question_content(str(question_file_path))
+            content = get_question_content(str(question_url))
             separator_index: int = get_separator_index(content)
 
             question_and_answer["question"] = extract_question(content, separator_index)
@@ -95,9 +99,9 @@ def main():
                 feedback = "Invalid answer. Enter only the response among the listed options."
                 show_feedback(feedback)
                 continue
-        
-        except FileNotFoundError as e:
-            print(f"Skipping question {file_name}: File not found.")
+                
+        except HTTPError:
+            print(f"Skipping question {file_name}: Web resource not found (404).")
             current_question_counter += 1
             continue
 

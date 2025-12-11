@@ -1,5 +1,5 @@
 from typing import List, Dict, Union
-from .repository import open_resource_file
+from .repository import open_resource_file, get_data
 
 def get_separator_index(content: str) -> int:
     '''Finds the index of the separator character (£) in the question content.'''
@@ -16,19 +16,16 @@ def extract_answer(content: str, index: int) -> str:
     '''Extracts the correct answer string using the separator index and strips whitespace.'''
     return content[index+1:].strip()
 
-def get_question_list(file_path: str) -> list[str]:
+def get_question_list(URL: str) -> list[str]:
     '''Reads the index file (questions.txt) and returns a list of individual question filenames.'''
-    questions_list: list[str] = []
-    with open_resource_file(file_path) as f:
-        for i in f:
-            questions_list.append(i.strip())
-    return questions_list 
+    text = get_data(URL)
+    questions_list = text.splitlines()
+    return questions_list
 
-def get_question_content(file_path: str) -> str:
+def get_question_content(URL: str) -> str:
     '''Retrieves the complete raw text content from a single question file.'''
-    with open_resource_file(file_path) as file:
-        content = file.read()
-        return content
+    content = get_data(URL)
+    return content
     
 def generate_statistics(final_results: dict[int, dict[str, str | bool]]) -> dict[str, int]:
     '''Calculates and returns the final count of correct and incorrect answers.'''
